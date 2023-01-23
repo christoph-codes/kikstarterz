@@ -10,11 +10,11 @@ const colors = {
 		},
 		black: {
 			default: "#000000",
-			light: "#1E1E1E",
+			hover: "#1E1E1E",
 		},
 		white: {
 			default: "#FFFFFF",
-			light: "#F1F1F1",
+			hover: "#F1F1F1",
 		},
 	},
 };

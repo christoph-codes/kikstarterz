@@ -2,27 +2,37 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background-color: var(--chakra-colors-brand-secondary-default) !important;
+  background-color: var(--chakra-colors-brand-black-default) !important;
   font-family: 'Kanit', sans-serif;
 }
 
 h1,h2,h3,h4,h5,h6 {
-	font-weight: 800;
-  font-style: italic;
-	line-height: 1,
+	font-weight: 700 !important;
+  font-style: italic !important;
+	line-height: 1 !important;
 }
 h1,h2,h3,h4,h5,h6, p,li {
 	color: var(--chakra-colors-brand-white-default)
 }
 
 h1 {
-	font-size: 80px !important;
+	font-size: 64px !important;
+	@media(max-width: 30em) {
+		font-size: 42px !important;
+	}
+	margin-bottom: 16px !important;
 }
 h2 {
-	font-size: 64px !important;
+	font-size: 48px !important;
+	@media(max-width: 30em) {
+		font-size: 36px !important;
+	}
 }
 h3 {
-	font-size: 48px !important;
+	font-size: 36px !important;
+	@media(max-width: 30em) {
+		font-size: 32px !important;
+	}
 }
 
 a {
@@ -38,9 +48,11 @@ a {
 	text-decoration: underline;
 	font-weight: bold;
 }
-p {
+p,li {
 	line-height: 1.5;
 	color: var(--chakra-colors-brand-black-default);
+	font-weight: 400;
+	margin-bottom: 16px !important;
 }
 img {
   min-width: 0;
