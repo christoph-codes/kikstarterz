@@ -20,6 +20,7 @@ export interface IButtonProps {
 	fullWidth?: boolean;
 	target?: HTMLAttributeAnchorTarget;
 	type?: HTMLButtonElement["type"];
+	onClick?: () => void;
 }
 
 const Button = ({
@@ -30,6 +31,7 @@ const Button = ({
 	href,
 	target,
 	type,
+	onClick,
 	...rest
 }: IButtonProps) => {
 	const Tag: "a" | "button" = typeof href === "string" ? "a" : "button";
@@ -41,6 +43,7 @@ const Button = ({
 				variant ? styles[`Button__${variant}`] : ""
 			} ${fullWidth ? styles.Button__fullWidth : ""}`}
 			target={href && target}
+			onClick={onClick}
 			{...rest}
 		>
 			{children}
