@@ -5,8 +5,15 @@ import Section from "@/components/Section";
 import Title from "@/components/Title";
 import { Box, Text } from "@chakra-ui/react";
 import MailchimpSubscribeForm from "@/components/MailchimpSubscriberForm";
+import { useRef } from "react";
 
 export default function Home() {
+	const waitlistRef = useRef<null | HTMLDivElement>(null);
+	const scrollToWaitlist = () => {
+		waitlistRef?.current?.scrollIntoView({
+			behavior: "smooth",
+		});
+	};
 	return (
 		<PageTemplate className={styles.Waitlist}>
 			<Hero
@@ -18,7 +25,7 @@ export default function Home() {
 							them a place to connect for the sake of growth and
 							improvement."
 				btnLabel="Join Waitlist"
-				btnLink="#waitlist"
+				btnClick={() => scrollToWaitlist()}
 			/>
 			<Hero
 				bgImg="/swim_hero_bg.png"
@@ -30,7 +37,7 @@ export default function Home() {
         platform is made for the athletes and it will stay
         that way."
 				btnLabel="Join Waitlist"
-				btnLink="#waitlist"
+				btnClick={() => scrollToWaitlist()}
 			/>
 			<Hero
 				bgImg="/basketball_hero_bg.png"
@@ -41,10 +48,10 @@ export default function Home() {
         Council feature, it should all live on your profile
         for those you choose to see.."
 				btnLabel="Join Waitlist"
-				btnLink="#waitlist"
+				btnClick={() => scrollToWaitlist()}
 				theme="light"
 			/>
-			<Section>
+			<Section id="#waitlist" ref={waitlistRef}>
 				<Box maxWidth={{ base: "100%", md: "50%" }} marginX="auto">
 					<Title color="brand.primary.default" textAlign="center">
 						Join The Waitlist
