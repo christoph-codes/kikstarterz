@@ -44,7 +44,7 @@ const MailchimpSubscribeForm = () => {
 											type: "email",
 											required: true,
 											label: "Email", //@ts-ignore
-											validation: ["REQUIRED"],
+											validation: ["REQUIRED", "EMAIL"],
 										},
 									]}
 								/>
