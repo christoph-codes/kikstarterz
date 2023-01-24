@@ -1,0 +1,22 @@
+import { Box, BoxProps } from "@chakra-ui/react";
+import { ReactNode } from "react";
+
+export interface IContainer {
+	className?: string;
+	children?: ReactNode;
+}
+
+const Container = ({ children, className, ...rest }: IContainer & BoxProps) => (
+	<Box
+		className={className || ""}
+		maxWidth="1600px"
+		width="100%"
+		marginX="auto"
+		paddingX={{ base: "16px", md: "8px" }}
+		{...rest}
+	>
+		{children}
+	</Box>
+);
+
+export default Container;
