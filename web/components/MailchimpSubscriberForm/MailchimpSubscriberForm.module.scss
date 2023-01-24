@@ -1,0 +1,27 @@
+.MailchimpSubscriberForm {
+    input {
+        padding: 8px;
+        display: block;
+        width: 100%;
+        margin-bottom: 16px;
+        border-radius: 4px;
+        background-color: var(--chakra-colors-brand-black-hover);
+        color: var(--chakra-colors-brand-white-default);
+    }
+    button {
+        background: var(--chakra-colors-brand-primary-default);
+        padding: 8px 32px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-style: italic;
+        font-size: 21px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0 auto;
+        display: block;
+        color: var(--chakra-colors-brand-black-default);
+        @media(max-width: 30em) {
+            width: 100%;
+        }
+    }
+}
