@@ -1,4 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
+import "@fontsource/kanit/700.css";
+import "@fontsource/kanit/400.css";
 
 const colors = {
 	brand: {
