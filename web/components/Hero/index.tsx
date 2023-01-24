@@ -12,6 +12,7 @@ export interface IHeroProps {
 	description?: string;
 	btnLabel?: string;
 	btnLink?: string;
+	btnClick?: () => void;
 }
 
 const Hero = ({
@@ -22,6 +23,7 @@ const Hero = ({
 	description,
 	btnLabel,
 	btnLink,
+	btnClick,
 	...rest
 }: IHeroProps) => {
 	return (
@@ -77,7 +79,11 @@ const Hero = ({
 					>
 						{description}
 					</Text>
-					<Button className={styles.Hero__button} href={btnLink}>
+					<Button
+						className={styles.Hero__button}
+						href={btnLink}
+						onClick={btnClick}
+					>
 						{btnLabel}
 					</Button>
 				</Box>
