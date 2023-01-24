@@ -22,7 +22,15 @@ const fonts = {
 	body: "'Kanit', sans-serif",
 	heading: `'Kanit', sans-serif`,
 };
+const styles = {
+	global: {
+		p: {
+			color: "brand.white.default",
+			fontSize: "16px",
+		},
+	},
+};
 
-const theme = extendTheme({ colors, fonts });
+const theme = extendTheme({ colors, fonts, styles });
 
 export default theme;
