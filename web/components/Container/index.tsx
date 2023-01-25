@@ -9,10 +9,10 @@ export interface IContainer {
 const Container = ({ children, className, ...rest }: IContainer & BoxProps) => (
 	<Box
 		className={className || ""}
-		maxWidth="1600px"
+		maxWidth="1200px"
 		width="100%"
 		marginX="auto"
-		paddingX={{ base: "16px", md: "8px" }}
+		paddingX="8px"
 		{...rest}
 	>
 		{children}
