@@ -3,11 +3,13 @@
 	padding: 4px;
 	margin: 0 8px;
 	text-align: center;
+	transition: color 0.15s ease-in-out;
 	span {
-		transition: 0.15s ease-in-out;
 		font-size: 16px;
 		color: var(--chakra-colors-brand-white-default);
 		white-space: nowrap;
+		font-weight: bold;
+		font-style: italic;
 	}
 	&:hover, &Active {
 		span {
