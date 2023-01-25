@@ -8,11 +8,15 @@ body {
 
 h1,h2,h3,h4,h5,h6 {
 	font-weight: 700 !important;
-  font-style: italic !important;
+  	font-style: italic !important;
 	line-height: 1 !important;
 }
 h1,h2,h3,h4,h5,h6, p,li {
 	color: var(--chakra-colors-brand-white-default)
+}
+
+h1, h2, h3 {
+	margin-bottom: 16px !important;
 }
 
 h1 {
@@ -20,7 +24,6 @@ h1 {
 	@media(max-width: 30em) {
 		font-size: 42px !important;
 	}
-	margin-bottom: 16px !important;
 }
 h2 {
 	font-size: 48px !important;
@@ -47,6 +50,9 @@ a {
 	color: var(--chakra-colors-brand-primary-default);
 	text-decoration: underline;
 	font-weight: bold;
+}
+ul {
+	padding-left: 32px !important;
 }
 p,li {
 	line-height: 1.5;

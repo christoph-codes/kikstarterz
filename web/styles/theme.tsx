@@ -30,6 +30,10 @@ const styles = {
 			color: "brand.white.default",
 			fontSize: "16px",
 		},
+		li: {
+			color: "brand.white.default",
+			fontSize: "16px",
+		},
 	},
 };
 
