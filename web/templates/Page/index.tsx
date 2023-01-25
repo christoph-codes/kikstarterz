@@ -17,6 +17,7 @@ export type PageProps = {
 	metaDescription?: string;
 	metaImage?: string | StaticImageData | any;
 	children: ReactNode;
+	container?: boolean;
 };
 /**
  * 'Page Template: Use this template to establish the Green Iguana layout and structure of all `pages`.'
@@ -27,6 +28,7 @@ const PageTemplate: FC<PageProps> = ({
 	metaImage = "/kikstarterz_seo.png",
 	metaDescription = "The dopest platform made for young athletes to showcase their achievements and talents.",
 	children,
+	container,
 }) => {
 	const router = useRouter();
 	const domain = "https://kikstarterz.com";
@@ -92,7 +94,7 @@ const PageTemplate: FC<PageProps> = ({
 			{/* <Navigation links={navigationLinks} /> */}
 			<Header />
 			<main className={`${styles.PageTemplate} ${className}`}>
-				{children}
+				{container ? <Container>{children}</Container> : children}
 			</main>
 			<Footer />
 			{/* <PoweredBy /> */}
