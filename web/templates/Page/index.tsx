@@ -25,7 +25,7 @@ const PageTemplate: FC<PageProps> = ({
 	className,
 	metaTitle = "Kikstarterz » Athletes Elevated",
 	metaImage = "/kikstarterz_seo.png",
-	metaDescription = "The ultimate platform for made for young athletes to showcase their talents in a dope and modern way.",
+	metaDescription = "The dopest platform made for young athletes to showcase their achievements and talents.",
 	children,
 }) => {
 	const router = useRouter();
