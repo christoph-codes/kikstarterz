@@ -10,19 +10,19 @@ router.get('/healthcheck', healthcheck);
 
 // Users
 router.post('/users/create', createUser);
-router.post('/users/get', getUser);
+router.get('/users/get', getUser);
 router.post('/users/update', updateUser);
 router.post('/users/delete', deleteUser);
 
 // Athletes
 router.post('/athletes/create', createAthlete);
-router.post('/athletes/get', getAthlete);
+router.get('/athletes/get', getAthlete);
 router.post('/athletes/update', updateAthlete);
 router.post('/athletes/delete', deleteAthlete);
 
 // Quotes
 router.post('/quotes/create', createQuote);
-router.post('/quotes/get', getQuote);
+router.get('/quotes/get', getQuote);
 router.post('/quotes/update', updateQuote);
 router.post('/quotes/delete', deleteQuote);
 
