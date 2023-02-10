@@ -3,7 +3,7 @@ const TUserType = {
     ADMIN: 'admin',
 } as const;
 
-export type TUserType = typeof TUserType;
+export type TUserType = typeof TUserType[keyof typeof TUserType];
 
 export interface IUser {
     username: string;
