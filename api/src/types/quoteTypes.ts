@@ -13,4 +13,5 @@ export interface IQuote {
     date: Date;
     fireCount: number;
     message: string;
+    authorId: string;
 }
