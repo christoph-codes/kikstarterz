@@ -3,4 +3,3 @@ package-lock.json
 !tsconfig.json
 bin
 .env
-/src/utils/firebase-service-account.json
