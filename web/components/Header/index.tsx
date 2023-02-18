@@ -19,7 +19,7 @@ const Header = () => {
 					width="300px"
 				/>
 			</Link>
-			<NavLink href="/white-paper">View our Whitepaper</NavLink>
+			<NavLink href="/white-paper">Whitepaper</NavLink>
 		</Flex>
 	);
 };
