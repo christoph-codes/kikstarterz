@@ -1,10 +1,56 @@
 import { Request, Response } from "express";
+import {auth, db} from '../config/firebase';
 
 export const createAthlete = (req: Request, res: Response) => {
+	console.log('Creating an athlete...');
+	const {uid, fname, lname, email, username, sports, password} = req.body.user;
+	if(!uid || !fname || !lname || !email || !username || !sports || !password) {
+		res.status(400).send({ status: 'You must provide all necessary data to create an account' });
+		return;
+	}
 	try {
-		res.status(200).send({ status: 'Creating a Kikstarterz Athlete' });
+		auth.createUser({
+			email,
+			password,
+			displayName: `${fname} ${lname}`,
+
+		}).then(userRecord => {
+			db.collection('athletes').doc(username).set({
+				uid: userRecord.uid,
+				username,
+				email,
+				fname,
+				lname,
+				sports,
+				height: '',
+				weight: '',
+				class: '',
+				profilePhoto: '',
+				hometown: '',
+				studying: '',
+				currentTeams: '',
+				gpa: 0,
+				sat: 0,
+				act: 0,
+				honorsClasses: 0,
+				apClasses: 0,
+				highlightVideoUrl: '',
+				actionPhotoUrl: '',
+				subscriptionType: 'free',
+			}).then(athleteRecord => {
+				res.status(200).send({ status: `success`, data: athleteRecord });
+				return;
+			}).catch(err => {
+				res.status(400).send({ error: err.message });
+				return;
+			})
+		}).catch(err => {
+			res.status(400).send({ error: err.message });
+			return;
+		});
 	} catch (err) {
-		res.status(500).send({ status: 'Failed creating a Kikstarterz Athlete' });
+		res.status(500).send({ status: 'Failed connecting to the database' });
+		return;
 	}
 };
 export const getAthlete = (req: Request, res: Response) => {

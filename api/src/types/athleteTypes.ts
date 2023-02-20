@@ -14,15 +14,17 @@ export type TVideoUrl = {
 
 export interface IAthlete {
     uid: IUser['uid'];
+    username: string;
+    email: string;
     fname: string;
     lname: string;
+    sports?: string[];
     height?: string;
     weight?: string;
     class?: string;
     profilePhoto?: string;
     hometown?: string;
     studying?: string;
-    sports?: string[];
     currentTeams?: string[];
     gpa?: number;
     sat?: number;
