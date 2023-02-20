@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import admin from "../config/firebase";
+import { auth } from "firebase-admin";
 
 export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
 	try {
         if(req.headers.authtoken && typeof req.headers.authtoken === 'string') {
-            admin.auth.verifyIdToken(req.headers.authtoken)
+            auth().verifyIdToken(req.headers.authtoken)
             .then(() => {
                 console.log('Got in!');
                 next();
@@ -24,7 +24,7 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
 export const issueToken = (req: Request, res: Response) => {
     try {
         const {uid} = req.body.user;
-        admin.auth.createCustomToken(uid).then(token => {
+        auth().createCustomToken(uid).then(token => {
             res.status(200).send({ status: 'success', token});
             // TODO: Issue token to headers for verifying
         }).catch(err => {
