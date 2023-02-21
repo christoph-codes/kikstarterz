@@ -1,22 +1,18 @@
 import express from 'express';
 import healthcheck from './healthcheck.routes';
-import {createUser, getUser, updateUser, deleteUser} from './users.routes';
 import {createAthlete, getAthlete, updateAthlete, deleteAthlete} from './athletes.routes';
 import {createQuote, getQuote, updateQuote, deleteQuote} from './quotes.routes';
-import {checkAuth} from './auth.routes';
+import {checkAuth, issueToken} from './auth.routes';
 
 const router = express.Router();
 
 router.get('/healthcheck', healthcheck);
 
-// Users
-router.post('/users/create', checkAuth, createUser);
-router.get('/users/:uid', getUser);
-router.post('/users/update', checkAuth, updateUser);
-router.post('/users/delete', checkAuth, deleteUser);
+router.get('/auth', checkAuth);
+router.get('/auth/serve', issueToken);
 
 // Athletes
-router.post('/athletes/create', checkAuth, createAthlete);
+router.post('/athletes/create', createAthlete);
 router.get('/athletes/:username', getAthlete);
 router.post('/athletes/update', checkAuth, updateAthlete);
 router.post('/athletes/delete', checkAuth, deleteAthlete);
