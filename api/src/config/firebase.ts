@@ -20,8 +20,6 @@ const serviceAccount: ServiceAccount = {
   "client_x509_cert_url": process.env.FIRE_client_cert_url,
 };
 
-console.log('object', JSON.stringify(serviceAccount));
-
 admin.initializeApp({
   // @ts-ignore
   credential: admin.credential.cert(serviceAccount)
