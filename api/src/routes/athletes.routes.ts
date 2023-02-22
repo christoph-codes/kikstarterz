@@ -53,9 +53,21 @@ export const createAthlete = (req: Request, res: Response) => {
 		return;
 	}
 };
-export const getAthlete = (req: Request, res: Response) => {
+export const getAthlete = async (req: Request, res: Response) => {
+	console.log('Getting athlete...');
+	const { username } = req.params;
 	try {
-		res.status(200).send({ status: 'Getting a Kikstarterz Athlete' });
+		const athlete = db.collection('athletes').where('username', '==', username);
+		const chosenAthlete = await athlete.get();
+		if(chosenAthlete.empty) {
+			res.status(400).send({ error: 'This athlete does not exist in our database' });
+			return;
+		}
+		chosenAthlete.forEach(ath => {
+			res.status(200).send({ status: 'success', data: ath.data() });
+			return;
+		})
+		return;
 	} catch (err) {
 		res.status(500).send({ status: 'Failed getting a Kikstarterz Athlete' });
 	}
