@@ -28,7 +28,7 @@ export const createAthlete = (req: Request, res: Response) => {
 				profilePhoto: '',
 				hometown: '',
 				studying: '',
-				currentTeams: '',
+				currentTeams: [''],
 				gpa: 0,
 				sat: 0,
 				act: 0,
