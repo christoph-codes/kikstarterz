@@ -47,7 +47,6 @@ const Title = ({
 			fontFamily="heading"
 			className={`${styles.Title} ${className}`}
 			textAlign={textAlign}
-			marginBottom="16px"
 			{...rest}
 		>
 			{children}
