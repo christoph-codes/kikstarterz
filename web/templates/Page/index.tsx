@@ -4,12 +4,11 @@ import { StaticImageData } from "next/image";
 import Head from "next/head";
 import styles from "./Page.module.scss";
 // import AnnouncementBar from "../../components/AnnouncementBar";
-// import Navigation from "@/components/Navigation";
-// import { navigationLinks } from "../../utils/navLinks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 // import PoweredBy from "@/components/PoweredBy";
 import Container from "@/components/Container";
+import { Box } from "@chakra-ui/react";
 
 export type PageProps = {
 	className?: string;
@@ -87,9 +86,13 @@ const PageTemplate: FC<PageProps> = ({
 			</AnnouncementBar> */}
 			{/* <Navigation links={navigationLinks} /> */}
 			<Header />
-			<main className={`${styles.PageTemplate} ${className}`}>
+			<Box
+				padding="0 16px"
+				as="main"
+				className={`${styles.PageTemplate} ${className}`}
+			>
 				{container ? <Container>{children}</Container> : children}
-			</main>
+			</Box>
 			<Footer />
 			{/* <PoweredBy /> */}
 		</>
