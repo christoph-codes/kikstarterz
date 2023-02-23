@@ -49,11 +49,16 @@ const Profile = () => {
 						>
 							Class of 2023 {user.class}
 						</Text>
-						<Flex marginTop={4} gap={8} justifyContent="center">
+						<Flex
+							marginTop={4}
+							gap={8}
+							justifyContent="center"
+							flexDirection={{ base: "column", md: "row" }}
+						>
 							<Box
-								width="50%"
+								width={{ base: "100%", md: "50%" }}
 								borderColor="brand.primary.default !important"
-								borderRight="2px solid"
+								borderRight={{ base: "none", md: "2px solid" }}
 							>
 								<DataPoint label="Hometown">
 									{user.location}
