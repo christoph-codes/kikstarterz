@@ -7,7 +7,7 @@ const Header = () => {
 		<Flex
 			justifyContent="space-between"
 			bgColor="brand.black.default"
-			paddingY="8px"
+			padding="8px 16px"
 			alignItems="center"
 			borderBottom="solid 1px"
 			borderBottomColor="brand.black.hover"
