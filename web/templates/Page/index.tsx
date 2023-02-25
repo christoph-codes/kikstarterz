@@ -87,7 +87,7 @@ const PageTemplate: FC<PageProps> = ({
 			{/* <Navigation links={navigationLinks} /> */}
 			<Header />
 			<Box
-				padding="0 16px"
+				padding={{ base: "0 16px", md: "0 32px" }}
 				as="main"
 				className={`${styles.PageTemplate} ${className}`}
 			>
