@@ -8,4 +8,12 @@ const kikapi = axios.create({
 	timeout: 1000,
 });
 
-export const fetcher = (url: string) => kikapi.get(url).then((res) => res.data);
+export const fetcher = (url: string) =>
+	kikapi
+		.get(url)
+		.then((res) => {
+			return res.data;
+		})
+		.catch((err) => {
+			return err.response.data;
+		});
