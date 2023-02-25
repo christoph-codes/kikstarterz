@@ -8,7 +8,6 @@ const app = express();
 const port = 5555;
 
 app.use((req, res, next) => {
-	console.log("nodenv", process.env.NODE_ENV);
 	// Set headers for localhost
 	if (process.env.NODE_ENV === "development") {
 		res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
