@@ -1,0 +1,13 @@
+.Profile {
+	&__highlight {
+		justify-content: center;
+		border-radius: 16px;
+		border-radius: 32px;
+		overflow: hidden;
+		width: 100% !important;
+		video {
+			box-shadow: 0 0 10px -5px rgba(0,0,0,0.7);
+			height: 100%;
+		}
+	}
+}
