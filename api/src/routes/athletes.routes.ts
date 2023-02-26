@@ -3,8 +3,17 @@ import { auth, db } from "../config/firebase";
 
 export const createAthlete = (req: Request, res: Response) => {
 	console.log("Creating an athlete...");
-	const { uid, fname, lname, email, username, sports, location, password } =
-		req.body.user;
+	const {
+		uid,
+		fname,
+		lname,
+		email,
+		username,
+		sports,
+		location,
+		password,
+		birthday,
+	} = req.body.user;
 	if (
 		!uid ||
 		!fname ||
@@ -13,7 +22,8 @@ export const createAthlete = (req: Request, res: Response) => {
 		!username ||
 		!sports ||
 		!password ||
-		!location
+		!location ||
+		!birthday
 	) {
 		res.status(400).send({
 			status: "You must provide all necessary data to create an account",
@@ -37,6 +47,8 @@ export const createAthlete = (req: Request, res: Response) => {
 						lname,
 						sports,
 						location,
+						birthday,
+						about: "",
 						height: "",
 						weight: "",
 						class: "",
@@ -51,6 +63,7 @@ export const createAthlete = (req: Request, res: Response) => {
 						highlightVideoUrl: "",
 						actionPhotoUrl: "",
 						subscriptionType: "free",
+						topStat: "",
 					})
 					.then((athleteRecord) => {
 						res.status(200).send({
