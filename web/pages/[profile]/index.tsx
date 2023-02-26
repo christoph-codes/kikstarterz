@@ -12,7 +12,11 @@ import FourOhFour from "../404";
 const Profile = () => {
 	const { query, push } = useRouter();
 
-	const { data, error, isLoading } = useSWR(
+	const {
+		data: athleteData,
+		error: athleteError,
+		isLoading: athleteIsLoading,
+	} = useSWR(
 		query.profile !== undefined ? `/api/athletes/${query.profile}` : null,
 		fetcher,
 		{
@@ -21,17 +25,18 @@ const Profile = () => {
 		}
 	);
 
-	if (isLoading || !data) {
+	if (athleteIsLoading || !athleteData) {
 		return null;
 	}
 
-	if (error || data.error) {
+	if (athleteError || athleteData.error) {
 		return <FourOhFour />;
 		// push("/404");
 		// return;
 	}
 
-	const user = data.data;
+	const user = athleteData.data;
+
 	return (
 		<PageTemplate>
 			<Flex
@@ -39,7 +44,7 @@ const Profile = () => {
 				as="section"
 				p={{ base: 4, md: 8 }}
 				marginTop={4}
-				marginBottom={8}
+				marginBottom={{ base: 4, md: 8 }}
 				borderRadius={16}
 				bgGradient="linear(to-tr, #0c191a, #2e2912)"
 				alignItems="flex-start"
@@ -195,7 +200,10 @@ const Profile = () => {
 				</Flex>
 			</Flex>
 			<Flex flexDirection="column" alignItems="center">
-				<Flex gap="8" flexDirection={{ base: "column", md: "row" }}>
+				<Flex
+					gap={{ base: 4, md: 8 }}
+					flexDirection={{ base: "column", md: "row" }}
+				>
 					<Image
 						src="/christopher_jones_action_1.png"
 						objectFit="cover"
@@ -227,7 +235,58 @@ const Profile = () => {
 					/>
 				</Flex>
 			</Flex>
-			<Box>Utility Bar</Box>
+			<Flex gap={{ base: 4, md: 8 }}>
+				<Flex
+					className={styles.Profile__bestStat}
+					bgGradient="linear(to-tr, #0c191a, #2e2912)"
+					alignItems="center"
+					justifyContent="center"
+					p={{ base: 4, md: 8 }}
+					marginY={{ base: 4, md: 8 }}
+					borderRadius={16}
+					flexDirection="column"
+					data-lastName="Stats"
+					width="100%"
+				>
+					<Text
+						fontWeight="bold"
+						marginBottom={2}
+						textTransform="uppercase"
+						fontStyle="italic"
+					>
+						Best Stat
+					</Text>
+					<Title h4 marginBottom={0}>
+						{user.topStat}
+					</Title>
+				</Flex>
+				{user.gpa && (
+					<Flex
+						className={styles.Profile__bestStat}
+						bgGradient="linear(to-tr, #0c191a, #2e2912)"
+						alignItems="center"
+						justifyContent="center"
+						p={{ base: 4, md: 8 }}
+						marginY={{ base: 4, md: 8 }}
+						borderRadius={16}
+						flexDirection="column"
+						data-lastName="GPA"
+						width="100%"
+					>
+						<Text
+							fontWeight="bold"
+							marginBottom={2}
+							textTransform="uppercase"
+							fontStyle="italic"
+						>
+							Report Card
+						</Text>
+						<Title h4 marginBottom={0}>
+							{user.gpa}
+						</Title>
+					</Flex>
+				)}
+			</Flex>
 			<Box>Quotes Grid</Box>
 		</PageTemplate>
 	);

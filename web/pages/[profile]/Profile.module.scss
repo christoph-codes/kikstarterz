@@ -10,4 +10,18 @@
 			height: 100%;
 		}
 	}
+	&__bestStat {
+		overflow: hidden;
+		position: relative;
+		&::before {
+			color: rgba(255,255,255,0.1);
+			content: attr(data-lastName);
+			font-size: 180px;
+			position: absolute;
+			font-weight: bold;
+			font-style: italic;
+			text-align: center;
+			margin-top: 16px;
+		}
+	}
 }
