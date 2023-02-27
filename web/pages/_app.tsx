@@ -3,6 +3,7 @@ import Script from "next/script";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "@/styles/theme";
 import SideNavProvider from "@/providers/SidenavProvider";
+import AuthProvider from "@/providers/AuthProvider";
 import "@/styles/globals.scss";
 
 const App = ({ Component, pageProps }: AppProps) => (
@@ -18,9 +19,11 @@ const App = ({ Component, pageProps }: AppProps) => (
 		</Script>
 
 		<ChakraProvider theme={theme}>
-			<SideNavProvider>
-				<Component {...pageProps} />
-			</SideNavProvider>
+			<AuthProvider>
+				<SideNavProvider>
+					<Component {...pageProps} />
+				</SideNavProvider>
+			</AuthProvider>
 		</ChakraProvider>
 	</>
 );
