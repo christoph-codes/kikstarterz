@@ -5,12 +5,13 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
 	try {
         if(req.headers.authtoken && typeof req.headers.authtoken === 'string') {
             auth().verifyIdToken(req.headers.authtoken)
-            .then(() => {
-                console.log('Got in!');
+            .then((decodedToken) => {
+                console.log('Got in!', req.body.loggedInUid);
+                req.body.loggedInUid = decodedToken.uid;
                 next();
             })
-            .catch(() => {
-                res.status(403).send('Unauthorized');
+            .catch((err) => {
+                res.status(403).send({ error: err});
             })
         } else {
             console.log('Not in!');
