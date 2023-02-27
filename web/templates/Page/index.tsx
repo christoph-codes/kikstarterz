@@ -70,12 +70,6 @@ const PageTemplate: FC<PageProps> = ({
 					sizes="16x16"
 					type="image/png"
 				/>
-				<link href="/favicons/site.webmanifest" rel="manifest" />
-				<link
-					color="brand.primary.default"
-					href="/favicons/safari-pinned-tab.svg"
-					rel="mask-icon"
-				/>
 				<link href="/favicon.ico" rel="shortcut icon" />
 
 				{url && <link href={canonical} rel="canonical" />}
