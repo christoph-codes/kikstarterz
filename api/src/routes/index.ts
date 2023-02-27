@@ -14,7 +14,7 @@ router.get('/auth/serve', issueToken);
 // Athletes
 router.post('/athletes/create', createAthlete);
 router.get('/athletes/:username', getAthlete);
-router.post('/athletes/update', checkAuth, updateAthlete);
+router.post('/athletes/:username/update', checkAuth, updateAthlete);
 router.post('/athletes/delete', checkAuth, deleteAthlete);
 
 // Quotes
