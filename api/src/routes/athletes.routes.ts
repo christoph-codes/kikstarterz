@@ -1,6 +1,15 @@
 import { Request, Response } from "express";
 import {auth, db} from '../config/firebase';
 
+/**
+ * We're creating a new user in the Firebase Authentication database, and then creating a new athlete
+ * in the Firebase Firestore database
+ * @param {Request} req - Request - this is the request object that contains all the information about
+ * the request that was made to the server.
+ * @param {Response} res - Response - This is the response object that we will use to send back data to
+ * the client.
+ * @returns A success object with `status`, string of success, and `data`, which is a timestamp
+ */
 export const createAthlete = (req: Request, res: Response) => {
 	console.log('Creating an athlete...');
 	const {uid, fname, lname, email, username, sports, password} = req.body.user;
@@ -70,11 +79,32 @@ export const getAthlete = async (req: Request, res: Response) => {
 		return;
 	} catch (err) {
 		res.status(500).send({ status: 'Failed getting a Kikstarterz Athlete' });
+		return;
 	}
 };
-export const updateAthlete = (req: Request, res: Response) => {
+export const updateAthlete = async (req: Request, res: Response) => {
+	console.log('Updating athlete...');
+	const { updatedAthleteValues, loggedInUid } = req.body;
+	console.log('loggedInUid:', loggedInUid);
+	console.log('updatedAthleteValues:', updatedAthleteValues);
+	if(!loggedInUid) {
+		res.status(400).send({ error: 'You are not authorized to handle this transaction' });
+		return;
+	}
+	if(!updatedAthleteValues) {
+		res.status(400).send({ error: 'You changes will be updated without new values' });
+		return;
+	}
 	try {
-		res.status(200).send({ status: 'Updating a Kikstarterz Athlete' });
+		const athleteRef = db.collection('athletes').doc(loggedInUid);
+		await athleteRef.update({
+			...updatedAthleteValues,
+			lastUpdated: Date.now(),
+		}).then(newAthleteRecord => {
+			res.status(200).send({ status: `success`, data: newAthleteRecord });
+		}).catch(err => {
+			res.status(400).send({ error: err})
+		})
 	} catch (err) {
 		res.status(500).send({ status: 'Failed updating a Kikstarterz Athlete' });
 	}
