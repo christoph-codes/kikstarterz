@@ -24,6 +24,7 @@
     "@types/react-mailchimp-subscribe": "^2.1.1",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.4",
+    "firebase": "^9.17.1",
     "framer-motion": "^8.5.2",
     "gray-matter": "^4.0.3",
     "next": "13.1.4",
