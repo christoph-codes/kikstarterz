@@ -17,3 +17,8 @@ export const fetcher = (url: string) =>
 		.catch((err) => {
 			return err.response.data;
 		});
+
+export const convertTimestamp = (timestamp: any) => {
+	const newDate = new Date(timestamp._seconds * 1000);
+	return newDate.toLocaleString("en").split(",")[0];
+};
