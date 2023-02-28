@@ -38,17 +38,33 @@ const Profile = () => {
 		}
 	);
 
-	if (athleteIsLoading || !athleteData) {
+	const {
+		data: quotesData,
+		error: quotesError,
+		isLoading: quotesIsLoading,
+	} = useSWR(
+		query.profile !== undefined ? `/api/quotes/${query.profile}` : null,
+		fetcher,
+		{
+			refreshInterval: 0,
+			revalidateOnFocus: false,
+		}
+	);
+
+	if (athleteIsLoading || !athleteData || quotesIsLoading) {
 		return null;
 	}
 
-	if (athleteError || athleteData.error) {
+	if (athleteError || athleteData.error || quotesError) {
 		return <FourOhFour />;
 		// push("/404");
 		// return;
 	}
 
 	const user = athleteData.data;
+	const quotes = quotesData?.data || [];
+
+	console.log("quotes", quotes);
 
 	return (
 		<PageTemplate>
@@ -377,7 +393,11 @@ const Profile = () => {
 						);
 					})}
 			</Flex>
-			<Box>Quotes Grid</Box>
+			<Flex>
+				{quotes.map((quote: any, quotesIndex: any) => {
+					return <Box key={quotesIndex}>{quote.message}</Box>;
+				})}
+			</Flex>
 		</PageTemplate>
 	);
 };
