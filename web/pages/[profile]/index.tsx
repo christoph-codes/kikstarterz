@@ -1,8 +1,21 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import PageTemplate from "@/templates/Page";
-import { fetcher } from "@/utils/helpers";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { convertTimestamp, fetcher } from "@/utils/helpers";
+import {
+	Box,
+	Flex,
+	Image,
+	Text,
+	TableContainer,
+	Td,
+	Tr,
+	TableCaption,
+	Thead,
+	Tbody,
+	Table,
+	Th,
+} from "@chakra-ui/react";
 import Title from "@/components/Title";
 import DataPoint from "@/components/DataPoint";
 import styles from "./Profile.module.scss";
@@ -151,7 +164,9 @@ const Profile = () => {
 								)}
 								{user.sports.length >= 1 && (
 									<DataPoint label="Sport(s)">
-										{user.sports.join(", ")}
+										{user.sports
+											.map((sport: any) => sport.name)
+											.join(", ")}
 									</DataPoint>
 								)}
 							</Box>
@@ -236,56 +251,131 @@ const Profile = () => {
 				</Flex>
 			</Flex>
 			<Flex gap={{ base: 4, md: 8 }}>
-				<Flex
-					className={styles.Profile__bestStat}
-					bgGradient="linear(to-tr, #0c191a, #2e2912)"
-					alignItems="center"
-					justifyContent="center"
-					p={{ base: 4, md: 8 }}
-					marginY={{ base: 4, md: 8 }}
-					borderRadius={16}
-					flexDirection="column"
-					data-lastName="Stats"
-					width="100%"
-				>
-					<Text
-						fontWeight="bold"
-						marginBottom={2}
-						textTransform="uppercase"
-						fontStyle="italic"
-					>
-						Best Stat
-					</Text>
-					<Title h4 marginBottom={0}>
-						{user.topStat}
-					</Title>
-				</Flex>
-				{user.gpa && (
-					<Flex
-						className={styles.Profile__bestStat}
-						bgGradient="linear(to-tr, #0c191a, #2e2912)"
-						alignItems="center"
-						justifyContent="center"
-						p={{ base: 4, md: 8 }}
-						marginY={{ base: 4, md: 8 }}
-						borderRadius={16}
-						flexDirection="column"
-						data-lastName="GPA"
-						width="100%"
-					>
-						<Text
-							fontWeight="bold"
-							marginBottom={2}
-							textTransform="uppercase"
-							fontStyle="italic"
-						>
-							Report Card
-						</Text>
-						<Title h4 marginBottom={0}>
-							{user.gpa}
-						</Title>
-					</Flex>
-				)}
+				{user.sports &&
+					user.sports.map((sport: any, index: number) => {
+						return (
+							<Box width="50%" key={index}>
+								{sport.stats
+									.slice(0, 1)
+									.map((stat: any, idx: number) => {
+										return (
+											<>
+												<Box
+													key={idx}
+													className={
+														styles.Profile__bestStat
+													}
+													bgGradient="linear(to-tr, #0c191a, #2e2912)"
+													alignItems="center"
+													justifyContent="center"
+													p={{ base: 4, md: 8 }}
+													marginY={{ base: 4, md: 8 }}
+													borderRadius={16}
+													flexDirection="column"
+													data-lastName={sport.name}
+													width="100%"
+												>
+													<Box
+														key={idx}
+														textAlign="center"
+														marginBottom={4}
+													>
+														<Title h4>
+															{stat.amount}{" "}
+															{stat.type}
+														</Title>
+														<Text>
+															at {stat.name}{" "}
+															{stat.event}
+														</Text>
+														<Text>
+															{convertTimestamp(
+																stat.date
+															)}
+														</Text>
+													</Box>
+												</Box>
+												{sport.stats.slice(1).length >=
+													1 && (
+													<TableContainer>
+														<Table variant="simple">
+															<TableCaption>
+																Stats are
+																regularly
+																updated and
+																uploaded by
+																athlete
+																manually.
+															</TableCaption>
+															<Thead>
+																<Tr>
+																	<Th>
+																		Date
+																	</Th>
+																	<Th>
+																		Event
+																	</Th>
+																	<Th
+																		isNumeric
+																	>
+																		Amount
+																	</Th>
+																	<Th>
+																		Type
+																	</Th>
+																</Tr>
+															</Thead>
+															<Tbody>
+																{sport.stats
+																	.slice(1)
+																	.map(
+																		(
+																			stat: any,
+																			idex: number
+																		) => {
+																			return (
+																				<Tr
+																					key={
+																						idex
+																					}
+																					color="brand.white.default"
+																				>
+																					<Td>
+																						{convertTimestamp(
+																							stat?.date
+																						)}
+																					</Td>
+																					<Td>
+																						{
+																							stat.event
+																						}
+																					</Td>
+																					<Td
+																						isNumeric
+																					>
+																						{
+																							stat.amount
+																						}
+																					</Td>
+																					<Td>
+																						{
+																							stat.type
+																						}
+																					</Td>
+																				</Tr>
+																			);
+																		}
+																	)}
+															</Tbody>
+														</Table>
+													</TableContainer>
+												)}
+											</>
+										);
+									})}
+							</Box>
+						);
+					})}
 			</Flex>
 			<Box>Quotes Grid</Box>
 		</PageTemplate>
