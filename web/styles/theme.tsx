@@ -12,6 +12,7 @@ const colors = {
 		},
 		black: {
 			default: "#000000",
+			light: "#646464",
 			hover: "#1E1E1E",
 		},
 		white: {

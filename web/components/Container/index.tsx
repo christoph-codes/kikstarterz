@@ -12,7 +12,7 @@ const Container = ({ children, className, ...rest }: IContainer & BoxProps) => (
 		maxWidth="1200px"
 		width="100%"
 		marginX="auto"
-		paddingX="8px"
+		paddingX={{ base: "8px", md: "32px" }}
 		{...rest}
 	>
 		{children}
