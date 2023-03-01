@@ -22,7 +22,10 @@ app.use((req, res, next) => {
 	}
 	// Set headers for production domain
 	else {
-		res.setHeader("Access-Control-Allow-Origin", "https://kikstarterz.com");
+		res.setHeader(
+			"Access-Control-Allow-Origin",
+			"https://www.kikstarterz.com"
+		);
 		res.setHeader(
 			"Access-Control-Allow-Methods",
 			"GET, POST, PUT, DELETE, OPTIONS"
