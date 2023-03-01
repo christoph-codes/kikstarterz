@@ -4,6 +4,7 @@ body {
   margin: 0;
   background-color: var(--chakra-colors-brand-black-default) !important;
   font-family: 'Kanit', sans-serif;
+  overflow-x: hidden;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -16,7 +17,7 @@ h1,h2,h3,h4,h5,h6, p,li {
 }
 
 h1, h2, h3 {
-	margin-bottom: 16px !important;
+	margin-bottom: 16px;
 }
 
 h1 {
@@ -59,7 +60,7 @@ p,li {
 	line-height: 1.5;
 	color: var(--chakra-colors-brand-black-default);
 	font-weight: 400;
-	margin-bottom: 16px !important;
+	margin-bottom: 16px;
 }
 img {
   min-width: 0;
