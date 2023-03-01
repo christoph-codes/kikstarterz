@@ -1,0 +1,27 @@
+.Profile {
+	&__highlight {
+		justify-content: center;
+		border-radius: 16px;
+		border-radius: 32px;
+		overflow: hidden;
+		width: 100% !important;
+		video {
+			box-shadow: 0 0 10px -5px rgba(0,0,0,0.7);
+			height: 100%;
+		}
+	}
+	&__bestStat {
+		overflow: hidden;
+		position: relative;
+		&::before {
+			color: rgba(255,255,255,0.1);
+			content: attr(data-lastName);
+			font-size: 180px;
+			position: absolute;
+			font-weight: bold;
+			font-style: italic;
+			text-align: center;
+			margin-top: -54px;
+		}
+	}
+}
