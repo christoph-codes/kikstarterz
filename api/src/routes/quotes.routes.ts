@@ -12,14 +12,19 @@ export const getQuote = async (req: Request, res: Response) => {
 	console.log("Getting Quotes!");
 	const { username } = req.params;
 	try {
-		const athlete = db.collection("quotes").where("user", "==", username);
+		const athlete = db
+			.collection("quotes")
+			.where("user", "==", username)
+			.orderBy("date", "desc")
+			.limit(5);
 		const allQuotes: any[] = [];
 		await athlete.get().then((snapshot) => {
-			snapshot.forEach((doc) => doc.data());
+			snapshot.forEach((doc) => allQuotes.push(doc.data()));
 		});
 		res.status(200).send({ status: "success", data: allQuotes });
 	} catch (err) {
 		res.status(500).send({
+			data: [],
 			error: "Failed getting a Kikstarterz Athlete Quotes",
 		});
 		return;
