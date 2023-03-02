@@ -6,7 +6,9 @@
 		font-weight: bold;
 		color: var(--chakra-colors-brand-white-default);
 		margin-bottom: 4px;
+		padding-left: 8px;
 		display: block;
+		text-align: left;
 		&:focus {
 			font-weight: bold;
 			color: var(--chakra-colors-brand-primary-default);
@@ -16,23 +18,23 @@
 		}
 	}
 	&__input {
-		padding: 1rem 1.5rem;
+		padding: 0.5rem 1rem;
 		border-radius: 0.25rem;
 		width: 100%;
-		border-color: var(--chakra-colors-brand-secondary-hover);
+		border-color: var(--chakra-colors-brand-black-light);
 		border-style: solid;
 		border-width: 1px;
-        background-color: var(--chakra-colors-brand-black-light);
+        background-color: var(--chakra-colors-brand-black-default);
 		color: var(--chakra-colors-brand-white-default);
 		&--error {
-			border-color: var(--chakra-colors-brand-primary-default);
+			border-color: var(--chakra-colors-brand-error-default);
 		}
 	}
 	&__errors {
         list-style: none;
 		&__error {
 			font-size: 0.875rem;
-            color: var(--chakra-colors-brand-secondary-hover);
+            color: var(--chakra-colors-brand-error-hover);
 		}
 	}
 }

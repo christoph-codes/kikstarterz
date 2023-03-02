@@ -24,8 +24,10 @@ const Form: FC<TFormProps> = ({
 }) => {
 	const [form, setForm] = useState({});
 	const formUpdate = (
-		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-		validation: EErrorMessages[],
+		e: ChangeEvent<
+			HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+		>,
+		validation: EErrorMessages[]
 	) => {
 		const { name, value } = e.target;
 		const validate = () =>
@@ -53,10 +55,13 @@ const Form: FC<TFormProps> = ({
 	};
 	const renderInputs = inputs.map((input, index) => (
 		<Input
-			key={index}
 			{...input}
+			type={input.type || "text"}
+			key={index}
 			form={form}
-			onChange={(e) => formUpdate(e, input.validation)}
+			onChange={(e) =>
+				formUpdate(e, input.validation ? input.validation : [])
+			}
 		/>
 	));
 	const [submitting, setSubmitting] = useState(false);
@@ -72,7 +77,7 @@ const Form: FC<TFormProps> = ({
 						[cv[0]]: cv[1].value,
 					};
 				},
-				{ formName },
+				{ formName }
 			);
 		};
 
