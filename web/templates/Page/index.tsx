@@ -8,7 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 // import PoweredBy from "@/components/PoweredBy";
 import Container from "@/components/Container";
-import { Box } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
 
 export type PageProps = {
 	className?: string;
@@ -17,6 +17,7 @@ export type PageProps = {
 	metaImage?: string | StaticImageData | any;
 	children: ReactNode;
 	container?: boolean;
+	containerStyles?: BoxProps;
 };
 /**
  * 'Page Template: Use this template to establish the Green Iguana layout and structure of all `pages`.'
@@ -28,6 +29,7 @@ const PageTemplate: FC<PageProps> = ({
 	metaDescription = "The dopest platform made for young athletes to showcase their achievements and talents.",
 	children,
 	container,
+	containerStyles,
 }) => {
 	const router = useRouter();
 	const domain = "https://kikstarterz.com";
@@ -90,8 +92,15 @@ const PageTemplate: FC<PageProps> = ({
 				padding={{ base: "0 16px", md: "0 32px" }}
 				as="main"
 				className={`${styles.PageTemplate} ${className}`}
+				minHeight={!container ? "70vh" : "unset"}
 			>
-				{container ? <Container>{children}</Container> : children}
+				{container ? (
+					<Container minHeight="70vh" {...containerStyles}>
+						{children}
+					</Container>
+				) : (
+					children
+				)}
 			</Box>
 			<Footer />
 			{/* <PoweredBy /> */}
