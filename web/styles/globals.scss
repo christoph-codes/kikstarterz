@@ -21,7 +21,7 @@ h1, h2, h3 {
 }
 
 h1 {
-	font-size: 64px !important;
+	font-size: 56px !important;
 	color: var(--chakra-colors-brand-primary-default);
 	@media(max-width: 30em) {
 		font-size: 42px !important;
@@ -29,6 +29,7 @@ h1 {
 }
 h2 {
 	font-size: 48px !important;
+	color: var(--chakra-colors-brand-primary-default);
 	@media(max-width: 30em) {
 		font-size: 36px !important;
 	}
