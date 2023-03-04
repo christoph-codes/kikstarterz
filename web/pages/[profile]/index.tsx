@@ -22,9 +22,11 @@ import styles from "./Profile.module.scss";
 import FourOhFour from "../404";
 import QuoteCard from "@/components/QuoteCard";
 import Section from "@/components/Section";
+import { useServerReady } from "@/providers/ServerReadyProvider";
 // import ReactPlayer from "react-player";
 
 const Profile = () => {
+	const { isServerReady } = useServerReady();
 	const { query } = useRouter();
 
 	const {
@@ -32,7 +34,9 @@ const Profile = () => {
 		error: athleteError,
 		isLoading: athleteIsLoading,
 	} = useSWR(
-		query.profile !== undefined ? `/api/athletes/${query.profile}` : null,
+		isServerReady && query.profile !== undefined
+			? `/api/athletes/${query.profile}`
+			: null,
 		fetcher,
 		{
 			refreshInterval: 0,
@@ -45,7 +49,9 @@ const Profile = () => {
 		error: quotesError,
 		isLoading: quotesIsLoading,
 	} = useSWR(
-		query.profile !== undefined ? `/api/quotes/${query.profile}` : null,
+		isServerReady && query.profile !== undefined
+			? `/api/quotes/${query.profile}`
+			: null,
 		fetcher,
 		{
 			refreshInterval: 0,
@@ -53,7 +59,7 @@ const Profile = () => {
 		}
 	);
 
-	if (athleteIsLoading || !athleteData || quotesIsLoading) {
+	if (athleteIsLoading || !athleteData || quotesIsLoading || !isServerReady) {
 		return null;
 	}
 
