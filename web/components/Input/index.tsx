@@ -70,14 +70,18 @@ const Input: FC<IInputProps> = ({
 					placeholder={placeholder}
 					id={name}
 					value={
-						(form && form[name as keyof typeof form]?.value) || ""
+						(form && form[name as keyof typeof form]?.value) || []
 					}
 					onChange={(e) => onChange && onChange(e, validation)}
 					required={required}
 					{...rest}
 				>
-					{options.map((opt) => {
-						return <option value={opt.value}>{opt.label}</option>;
+					{options.map((opt, optIndex) => {
+						return (
+							<option key={optIndex} value={opt.value}>
+								{opt.label}
+							</option>
+						);
 					})}
 				</select>
 			) : type === "textarea" ? (
