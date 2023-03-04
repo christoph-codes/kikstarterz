@@ -4,6 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "@/styles/theme";
 import SideNavProvider from "@/providers/SidenavProvider";
 import "@/styles/globals.scss";
+import ServerReadyProvider from "@/providers/ServerReadyProvider";
 
 const App = ({ Component, pageProps }: AppProps) => (
 	<>
@@ -18,9 +19,11 @@ const App = ({ Component, pageProps }: AppProps) => (
 		</Script>
 
 		<ChakraProvider theme={theme}>
-			<SideNavProvider>
-				<Component {...pageProps} />
-			</SideNavProvider>
+			<ServerReadyProvider>
+				<SideNavProvider>
+					<Component {...pageProps} />
+				</SideNavProvider>
+			</ServerReadyProvider>
 		</ChakraProvider>
 	</>
 );
