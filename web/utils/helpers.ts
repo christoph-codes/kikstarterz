@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const kikapi = axios.create({
+export const kikapi = axios.create({
 	baseURL:
 		process.env.NODE_ENV === "development"
 			? "http://localhost:5555"
@@ -8,8 +8,8 @@ const kikapi = axios.create({
 	timeout: 1000,
 });
 
-export const fetcher = (url: string) =>
-	kikapi
+export const fetcher = (url: string) => {
+	return kikapi
 		.get(url)
 		.then((res) => {
 			return res.data;
@@ -17,6 +17,7 @@ export const fetcher = (url: string) =>
 		.catch((err) => {
 			return err.response.data;
 		});
+};
 
 export const convertTimestamp = (timestamp: any) => {
 	const newDate = new Date(timestamp._seconds * 1000);
