@@ -1,13 +1,22 @@
+import { Text } from "@chakra-ui/react";
 import Card from "@/components/Card";
 import Form from "@/components/Form";
-import Input from "@/components/Input";
+import Section from "@/components/Section";
 import Title from "@/components/Title";
 import PageTemplate from "@/templates/Page";
-import { Box } from "@chakra-ui/react";
+import { kikapi } from "@/utils/helpers";
 
 const Signup = () => {
 	const signup = () => {
-		console.log("Signing up the user");
+		const newUser = "empty object";
+		kikapi
+			.post("/api/athletes/create", newUser)
+			.then((res) => {
+				console.log("Create user result", res);
+			})
+			.catch((err) => {
+				console.log("Error", err);
+			});
 	};
 	return (
 		<PageTemplate
@@ -17,14 +26,29 @@ const Signup = () => {
 			containerStyles={{
 				display: "flex",
 				justifyContent: "center",
+				alignItems: "center",
+				flexDirection: "column",
 			}}
 		>
-			<Card
+			<Section
+				width="100%"
+				backgroundSize={{ base: "cover", md: "contain" }}
+				bgImage="/signup_bg.png"
+				backgroundPosition="center"
+				height="50vh"
 				marginTop={8}
+			/>
+			<Card
+				marginTop={-8}
 				textAlign="center"
 				maxWidth={{ base: "100%", md: "70%" }}
 			>
-				<Title marginBottom={8}>Sign Up</Title>
+				<Title marginBottom={8}>Create Account</Title>
+				<Text marginY={4}>
+					Kickoff your athletic journey today by connecting with other
+					athletes and presenting yourself like a pro for elevating
+					your athletic career to the next level.
+				</Text>
 				<Form
 					formName="signup"
 					onSubmit={() => signup()}
