@@ -23,6 +23,7 @@ import FourOhFour from "../404";
 import QuoteCard from "@/components/QuoteCard";
 import Section from "@/components/Section";
 import { useServerReady } from "@/providers/ServerReadyProvider";
+import { Fragment } from "react";
 // import ReactPlayer from "react-player";
 
 const Profile = () => {
@@ -65,14 +66,10 @@ const Profile = () => {
 
 	if (athleteError || athleteData.error || quotesError) {
 		return <FourOhFour />;
-		// push("/404");
-		// return;
 	}
 
 	const user = athleteData.data;
 	const quotes = quotesData?.data || [];
-
-	console.log("quotes", quotes);
 
 	return (
 		<PageTemplate>
@@ -90,6 +87,7 @@ const Profile = () => {
 			>
 				<Flex
 					gap={{ base: 4, md: 8 }}
+					width="100%"
 					flexDirection={{ base: "column", md: "row" }}
 				>
 					<Box
@@ -166,7 +164,6 @@ const Profile = () => {
 						>
 							<Box
 								width={{ base: "100%", md: "30%" }}
-								// maxWidth={300}
 								borderColor="brand.primary.default !important"
 								borderRight={{
 									base: "none",
@@ -176,63 +173,45 @@ const Profile = () => {
 								<DataPoint label="Hometown">
 									{user.location}
 								</DataPoint>
-								{user.height && (
-									<DataPoint label="Height">
-										{user.height}
-									</DataPoint>
-								)}
-								{user.weight && (
-									<DataPoint label="Weight">
-										{`${user.weight} lbs.`}
-									</DataPoint>
-								)}
-								{user.sports.length >= 1 && (
-									<DataPoint label="Sport(s)">
-										{user.sports
-											.map((sport: any) => sport.name)
-											.join(", ")}
-									</DataPoint>
-								)}
+								<DataPoint label="Height">
+									{user.height}
+								</DataPoint>
+								<DataPoint label="Weight">
+									{`${user.weight || "N/A"} lbs.`}
+								</DataPoint>
+								<DataPoint label="Sport(s)">
+									{user.sports
+										.map((sport: any) => sport.name)
+										.join(", ")}
+								</DataPoint>
 							</Box>
 							<Box
 								width={{ base: "100%", md: "30%" }}
-								// maxWidth={300}
 								borderColor="brand.primary.default !important"
 								borderRight={{
 									base: "none",
 									md: "2px solid",
 								}}
 							>
-								{(user.gpa || user.act || user.sat) && (
-									<DataPoint label="Academics">
-										{`GPA: ${user.gpa} | SAT: ${user.sat} | ACT: ${user.act}`}
-									</DataPoint>
-								)}
-								{user.studying && (
-									<DataPoint label="Studying">
-										{user.studying}
-									</DataPoint>
-								)}
-								{user.apClasses > 0 && (
-									<DataPoint label="AP Classes">
-										{user.apClasses}
-									</DataPoint>
-								)}
-								{user.honorsClasses > 0 && (
-									<DataPoint label="Honors Classes">
-										{user.honorsClasses}
-									</DataPoint>
-								)}
+								<DataPoint label="Academics">
+									{`GPA: ${user.gpa || "N/A"} | SAT: ${
+										user.sat || "N/A"
+									} | ACT: ${user.act || "N/A"}`}
+								</DataPoint>
+								<DataPoint label="Studying">
+									{user.studying}
+								</DataPoint>
+								<DataPoint label="AP Classes">
+									{user.apClasses}
+								</DataPoint>
+								<DataPoint label="Honors Classes">
+									{user.honorsClasses}
+								</DataPoint>
 							</Box>
-							<Box
-								width={{ base: "100%", md: "30%" }}
-								// maxWidth={300}
-							>
-								{user.about && (
-									<DataPoint label="About Me">
-										{user.about}
-									</DataPoint>
-								)}
+							<Box width={{ base: "100%", md: "30%" }}>
+								<DataPoint label="About Me">
+									{user.about}
+								</DataPoint>
 							</Box>
 						</Flex>
 					</Box>
@@ -281,146 +260,172 @@ const Profile = () => {
 							Stats
 						</Title>
 						{user?.sports?.length > 0 ? (
-							user.sports.map((sport: any) => {
-								return (
-									<>
-										{sport.stats
-											.slice(0, 1)
-											.map((stat: any, idx: number) => {
-												return (
-													<>
-														<Box
-															key={idx}
-															className={
-																styles.Profile__bestStat
-															}
-															alignItems="center"
-															justifyContent="center"
-															marginBottom={{
-																base: 4,
-																md: 8,
-															}}
-															p={{
-																base: 4,
-																md: 8,
-															}}
-															bgGradient="linear(to-tr, #0c191a, #2e2912)"
-															borderRadius={16}
-															flexDirection="column"
-															data-lastName={
-																sport.name
-															}
-															width="100%"
-														>
-															<Box
-																key={idx}
-																textAlign="center"
-																marginBottom={4}
-															>
-																<Title h4>
-																	{
-																		stat.amount
-																	}{" "}
-																	{stat.type}
-																</Title>
-																<Text>
-																	at{" "}
-																	{stat.name}{" "}
-																	{stat.event}
-																</Text>
-																<Text>
-																	{convertTimestamp(
-																		stat.date
-																	)}
-																</Text>
-															</Box>
-														</Box>
-														{sport.stats.slice(1)
-															.length >= 1 && (
-															<TableContainer>
-																<Table variant="simple">
-																	<TableCaption>
-																		Stats
-																		are
-																		regularly
-																		updated
-																		and
-																		uploaded
-																		by
-																		athlete
-																		manually.
-																	</TableCaption>
-																	<Thead>
-																		<Tr>
-																			<Th>
-																				Date
-																			</Th>
-																			<Th>
-																				Event
-																			</Th>
-																			<Th
-																				isNumeric
+							user.sports.map(
+								(sport: any, sportIndex: number) => {
+									return (
+										<Fragment key={sportIndex}>
+											{sport.stats &&
+												sport.stats
+													.slice(0, 1)
+													.map(
+														(
+															stat: any,
+															idx: number
+														) => {
+															return (
+																<>
+																	<Box
+																		key={
+																			idx
+																		}
+																		className={
+																			styles.Profile__bestStat
+																		}
+																		alignItems="center"
+																		justifyContent="center"
+																		marginBottom={{
+																			base: 4,
+																			md: 8,
+																		}}
+																		p={{
+																			base: 4,
+																			md: 8,
+																		}}
+																		bgGradient="linear(to-tr, #0c191a, #2e2912)"
+																		borderRadius={
+																			16
+																		}
+																		flexDirection="column"
+																		data-lastName={
+																			sport.name
+																		}
+																		width="100%"
+																	>
+																		<Box
+																			key={
+																				idx
+																			}
+																			textAlign="center"
+																			marginBottom={
+																				4
+																			}
+																		>
+																			<Title
+																				h4
 																			>
-																				Amount
-																			</Th>
-																			<Th>
-																				Type
-																			</Th>
-																		</Tr>
-																	</Thead>
-																	<Tbody>
-																		{sport.stats
-																			.slice(
-																				1
-																			)
-																			.map(
-																				(
-																					stat: any,
-																					idex: number
-																				) => {
-																					return (
-																						<Tr
-																							key={
-																								idex
-																							}
-																							color="brand.white.default"
-																						>
-																							<Td>
-																								{convertTimestamp(
-																									stat?.date
-																								)}
-																							</Td>
-																							<Td>
-																								{
-																									stat.event
-																								}
-																							</Td>
-																							<Td
-																								isNumeric
-																							>
-																								{
-																									stat.amount
-																								}
-																							</Td>
-																							<Td>
-																								{
-																									stat.type
-																								}
-																							</Td>
-																						</Tr>
-																					);
+																				{
+																					stat.amount
+																				}{" "}
+																				{
+																					stat.type
 																				}
-																			)}
-																	</Tbody>
-																</Table>
-															</TableContainer>
-														)}
-													</>
-												);
-											})}
-									</>
-								);
-							})
+																			</Title>
+																			<Text>
+																				at{" "}
+																				{
+																					stat.name
+																				}{" "}
+																				{
+																					stat.event
+																				}
+																			</Text>
+																			<Text>
+																				{convertTimestamp(
+																					stat.date
+																				)}
+																			</Text>
+																		</Box>
+																	</Box>
+																	{sport.stats.slice(
+																		1
+																	).length >=
+																		1 && (
+																		<TableContainer>
+																			<Table variant="simple">
+																				<TableCaption>
+																					Stats
+																					are
+																					regularly
+																					updated
+																					and
+																					uploaded
+																					by
+																					athlete
+																					manually.
+																				</TableCaption>
+																				<Thead>
+																					<Tr>
+																						<Th>
+																							Date
+																						</Th>
+																						<Th>
+																							Event
+																						</Th>
+																						<Th
+																							isNumeric
+																						>
+																							Amount
+																						</Th>
+																						<Th>
+																							Type
+																						</Th>
+																					</Tr>
+																				</Thead>
+																				<Tbody>
+																					{sport.stats
+																						.slice(
+																							1
+																						)
+																						.map(
+																							(
+																								stat: any,
+																								idex: number
+																							) => {
+																								return (
+																									<Tr
+																										key={
+																											idex
+																										}
+																										color="brand.white.default"
+																									>
+																										<Td>
+																											{convertTimestamp(
+																												stat?.date
+																											)}
+																										</Td>
+																										<Td>
+																											{
+																												stat.event
+																											}
+																										</Td>
+																										<Td
+																											isNumeric
+																										>
+																											{
+																												stat.amount
+																											}
+																										</Td>
+																										<Td>
+																											{
+																												stat.type
+																											}
+																										</Td>
+																									</Tr>
+																								);
+																							}
+																						)}
+																				</Tbody>
+																			</Table>
+																		</TableContainer>
+																	)}
+																</>
+															);
+														}
+													)}
+										</Fragment>
+									);
+								}
+							)
 						) : (
 							<Text>No Stats Found</Text>
 						)}
