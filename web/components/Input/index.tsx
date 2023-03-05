@@ -40,110 +40,121 @@ const Input: FC<IInputProps> = ({
 	onChange,
 	options,
 	...rest
-}) => (
-	<label className={`${styles.Input}`} htmlFor={name}>
-		<>
-			<span
-				className={`${styles.Input__label} ${
-					form &&
-					form[name as keyof typeof form]?.isNotValid.some(
-						(e) => e !== ""
-					)
-						? styles["Input__label--error"]
-						: ""
-				}`}
-			>
-				{label}
-			</span>
-			{type === "multifield" && options ? (
-				<select
-					className={`${styles.Input__input} ${
+}) => {
+	const handleSelectChange = (e: any) => {
+		return onChange && onChange(e, validation);
+	};
+	return (
+		<label className={`${styles.Input}`} htmlFor={name}>
+			<>
+				<span
+					className={`${styles.Input__label} ${
 						form &&
 						form[name as keyof typeof form]?.isNotValid.some(
 							(e) => e !== ""
 						)
-							? styles["Input__input--error"]
+							? styles["Input__label--error"]
 							: ""
 					}`}
-					multiple
-					name={name}
-					placeholder={placeholder}
-					id={name}
-					value={
-						(form && form[name as keyof typeof form]?.value) || []
-					}
-					onChange={(e) => onChange && onChange(e, validation)}
-					required={required}
-					{...rest}
 				>
-					{options.map((opt, optIndex) => {
-						return (
-							<option key={optIndex} value={opt.value}>
-								{opt.label}
-							</option>
-						);
-					})}
-				</select>
-			) : type === "textarea" ? (
-				<textarea
-					className={`${styles.Input__input} ${
-						form &&
-						form[name as keyof typeof form]?.isNotValid.some(
-							(e) => e !== ""
-						)
-							? styles["Input__input--error"]
-							: ""
-					}`}
-					name={name}
-					placeholder={placeholder}
-					id={name}
-					value={
-						(form && form[name as keyof typeof form]?.value) || ""
-					}
-					onChange={(e) => onChange && onChange(e, validation)}
-					required={required}
-					{...rest}
-				/>
-			) : (
-				<input
-					className={`${styles.Input__input} ${
-						form &&
-						form[name as keyof typeof form]?.isNotValid.some(
-							(e) => e !== ""
-						)
-							? styles["Input__input--error"]
-							: ""
-					}`}
-					name={name}
-					placeholder={placeholder}
-					type={type}
-					id={name}
-					value={
-						(form && form[name as keyof typeof form]?.value) || ""
-					}
-					onChange={(e) => onChange && onChange(e, validation)}
-					required={required}
-					{...rest}
-				/>
-			)}
-			{form && form[name as keyof typeof form]?.isNotValid.length > 0 && (
-				<ul className={styles.Input__errors}>
-					{form &&
-						form[name as keyof typeof form]?.isNotValid.map(
-							(err, index) =>
-								err !== "" && (
-									<li
-										key={index}
-										className={styles.Input__errors__error}
-									>
-										{err}
-									</li>
-								)
-						)}
-				</ul>
-			)}
-		</>
-	</label>
-);
+					{label}
+				</span>
+				{type === "multifield" && options ? (
+					<select
+						className={`${styles.Input__input} ${
+							form &&
+							form[name as keyof typeof form]?.isNotValid.some(
+								(e) => e !== ""
+							)
+								? styles["Input__input--error"]
+								: ""
+						}`}
+						multiple
+						name={name}
+						placeholder={placeholder}
+						id={name}
+						value={
+							(form && form[name as keyof typeof form]?.value) ||
+							[]
+						}
+						onChange={handleSelectChange}
+						required={required}
+						{...rest}
+					>
+						{options.map((opt, optIndex) => {
+							return (
+								<option key={optIndex} value={opt.value}>
+									{opt.label}
+								</option>
+							);
+						})}
+					</select>
+				) : type === "textarea" ? (
+					<textarea
+						className={`${styles.Input__input} ${
+							form &&
+							form[name as keyof typeof form]?.isNotValid.some(
+								(e) => e !== ""
+							)
+								? styles["Input__input--error"]
+								: ""
+						}`}
+						name={name}
+						placeholder={placeholder}
+						id={name}
+						value={
+							(form && form[name as keyof typeof form]?.value) ||
+							""
+						}
+						onChange={(e) => onChange && onChange(e, validation)}
+						required={required}
+						{...rest}
+					/>
+				) : (
+					<input
+						className={`${styles.Input__input} ${
+							form &&
+							form[name as keyof typeof form]?.isNotValid.some(
+								(e) => e !== ""
+							)
+								? styles["Input__input--error"]
+								: ""
+						}`}
+						name={name}
+						placeholder={placeholder}
+						type={type}
+						id={name}
+						value={
+							(form && form[name as keyof typeof form]?.value) ||
+							""
+						}
+						onChange={(e) => onChange && onChange(e, validation)}
+						required={required}
+						{...rest}
+					/>
+				)}
+				{form &&
+					form[name as keyof typeof form]?.isNotValid.length > 0 && (
+						<ul className={styles.Input__errors}>
+							{form &&
+								form[name as keyof typeof form]?.isNotValid.map(
+									(err, index) =>
+										err !== "" && (
+											<li
+												key={index}
+												className={
+													styles.Input__errors__error
+												}
+											>
+												{err}
+											</li>
+										)
+								)}
+						</ul>
+					)}
+			</>
+		</label>
+	);
+};
 
 export default Input;

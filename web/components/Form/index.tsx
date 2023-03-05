@@ -45,13 +45,27 @@ const Form: FC<TFormProps> = ({
 				}
 				throw new Error("Not a valid input validator.");
 			});
-		setForm({
-			...form,
-			[name]: {
-				value,
-				isNotValid: [...validate()],
-			},
-		});
+		if (e.target.type === "select-multiple") {
+			// @ts-ignore
+			const options = Array.from(e.target.selectedOptions).map(
+				(option: any) => option.value
+			);
+			setForm((prev) => ({
+				...prev,
+				[name]: {
+					value: options,
+					isNotValid: [...validate()],
+				},
+			}));
+		} else {
+			setForm({
+				...form,
+				[name]: {
+					value,
+					isNotValid: [...validate()],
+				},
+			});
+		}
 	};
 	const renderInputs = inputs.map((input, index) => (
 		<Input
