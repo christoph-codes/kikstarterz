@@ -18,7 +18,7 @@ const DataPoint = ({ label, children }: IDataPoint) => {
 				fontWeight="bold"
 				color="brand.white.default"
 			>
-				{children}
+				{children || "N/A"}
 			</Text>
 		</Box>
 	);
