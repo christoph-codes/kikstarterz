@@ -39,3 +39,7 @@ next-env.d.ts
 !tsconfig.json
 !next-env.d.ts
 !next.config.js
+
+# firebase
+firebase-debug.log
+firestore-debug.log
