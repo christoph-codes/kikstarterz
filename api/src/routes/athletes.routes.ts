@@ -45,7 +45,12 @@ export const createAthlete = (req: Request, res: Response) => {
 						email,
 						fname,
 						lname,
-						sports,
+						sports: sports.map((sport: any) => {
+							return {
+								name: sport,
+								stats: [],
+							};
+						}),
 						location,
 						birthday,
 						about: "",
@@ -105,6 +110,7 @@ export const getAthlete = async (req: Request, res: Response) => {
 			res.status(200).send({ status: "success", data: ath.data() });
 			return;
 		});
+		return;
 	} catch (err) {
 		res.status(500).send({
 			error: "Failed getting a Kikstarterz Athlete",
