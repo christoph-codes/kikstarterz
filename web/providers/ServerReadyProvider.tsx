@@ -5,10 +5,13 @@ import useSWR from "swr";
 const ServerContext = createContext({ isServerReady: false });
 
 const ServerReadyProvider = ({ children }: PropsWithChildren) => {
-	const { data } = useSWR("/api/healthcheck", fetcher);
+	const { data, error } = useSWR("/api/healthcheck", fetcher);
 
 	if (data?.status) {
 		console.log("ready");
+	}
+	if (data?.error || error) {
+		console.error("not ready", error);
 	}
 
 	return (
