@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-	"emu": "firebase emulators:start"
+    "emu": "firebase emulators:start"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
@@ -26,6 +26,7 @@
     "axios": "^1.3.4",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.4",
+    "firebase": "^9.17.2",
     "framer-motion": "^8.5.2",
     "gray-matter": "^4.0.3",
     "next": "13.1.4",
