@@ -10,6 +10,9 @@ const colors = {
 			light: "#fffae7",
 			dark: "#433400",
 		},
+		error: {
+			default: "#FF6847",
+		},
 		black: {
 			default: "#000000",
 			light: "#646464",
