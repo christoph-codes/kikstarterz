@@ -4,7 +4,6 @@ import { auth, db } from "../config/firebase";
 export const createAthlete = (req: Request, res: Response) => {
 	console.log("Creating an athlete...");
 	const {
-		uid,
 		fname,
 		lname,
 		email,
@@ -15,7 +14,6 @@ export const createAthlete = (req: Request, res: Response) => {
 		birthday,
 	} = req.body.user;
 	if (
-		!uid ||
 		!fname ||
 		!lname ||
 		!email ||
@@ -26,7 +24,7 @@ export const createAthlete = (req: Request, res: Response) => {
 		!birthday
 	) {
 		res.status(400).send({
-			status: "You must provide all necessary data to create an account",
+			error: "You must provide all necessary data to create an account",
 		});
 		return;
 	}
