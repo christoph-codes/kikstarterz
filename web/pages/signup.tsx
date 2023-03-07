@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 import { Text } from "@chakra-ui/react";
 import Card from "@/components/Card";
 import Form from "@/components/Form";
@@ -7,15 +10,32 @@ import PageTemplate from "@/templates/Page";
 import { kikapi } from "@/utils/helpers";
 
 const Signup = () => {
-	const signup = () => {
-		const newUser = "empty object";
+	const [error, setError] = useState("");
+	const signup = (newUser: any) => {
 		kikapi
-			.post("/api/athletes/create", newUser)
+			.post("/api/athletes/create", { user: newUser })
 			.then((res) => {
 				console.log("Create user result", res);
+				setError("");
+				signInWithEmailAndPassword(
+					auth,
+					newUser.email,
+					newUser.password
+				)
+					.then((userCredential) => {
+						setError("");
+						// Signed in
+						const user = userCredential.user;
+						console.log("LOGGED IN USER", user);
+						// ...
+					})
+					.catch((error) => {
+						setError(error.message);
+					});
 			})
 			.catch((err) => {
 				console.log("Error", err);
+				setError(err.response.data.error);
 			});
 	};
 	return (
@@ -51,8 +71,9 @@ const Signup = () => {
 				</Text>
 				<Form
 					formName="signup"
-					onSubmit={() => signup()}
+					onSubmit={signup}
 					submitButton={{ children: "Submit" }}
+					error={error}
 					inputs={[
 						{
 							name: "fname",
