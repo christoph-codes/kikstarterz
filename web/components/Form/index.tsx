@@ -1,10 +1,11 @@
-import { FC, useState, ChangeEvent } from "react";
+import { FC, useState, ChangeEvent, useEffect } from "react";
 import inputValidations, { EErrorMessages } from "../../utils/inputValidations";
 // eslint-disable-next-line import/no-unresolved
 import Button, { IButtonProps } from "@/components/Button";
 import Input, { IInputProps } from "@/components/Input";
 import Loader from "@/components/Loader";
 import styles from "./Form.module.scss";
+import { Text } from "@chakra-ui/react";
 
 export type TFormProps = {
 	inputs: IInputProps[];
@@ -13,6 +14,7 @@ export type TFormProps = {
 	onSubmit: (e: {}) => void;
 	submitButton: IButtonProps;
 	formName: string;
+	error?: string;
 };
 
 const Form: FC<TFormProps> = ({
@@ -21,6 +23,7 @@ const Form: FC<TFormProps> = ({
 	onSubmit,
 	submitButton,
 	formName,
+	error,
 }) => {
 	const [form, setForm] = useState({});
 	const formUpdate = (
@@ -97,9 +100,14 @@ const Form: FC<TFormProps> = ({
 
 		setTimeout(() => {
 			setSubmitting(false);
-			onSubmit(grabValuesOnly());
-		}, 3000);
+			if (!error) {
+				onSubmit(grabValuesOnly());
+			}
+		}, 1000);
 	};
+	useEffect(() => {
+		console.log("form", form);
+	}, [form]);
 
 	return (
 		<form
@@ -107,6 +115,11 @@ const Form: FC<TFormProps> = ({
 			onSubmit={(e: ChangeEvent<HTMLFormElement>) => submit(e)}
 		>
 			{renderInputs}
+			{error && (
+				<Text paddingY={4} color="brand.error.default">
+					{error}
+				</Text>
+			)}
 			{submitting ? (
 				<Loader marginTop={8} isLoading={submitting} />
 			) : (
