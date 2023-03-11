@@ -18,6 +18,7 @@ export type PageProps = {
 	children: ReactNode;
 	container?: boolean;
 	containerStyles?: BoxProps;
+	fullpage?: boolean;
 };
 /**
  * 'Page Template: Use this template to establish the Green Iguana layout and structure of all `pages`.'
@@ -30,6 +31,7 @@ const PageTemplate: FC<PageProps> = ({
 	children,
 	container,
 	containerStyles,
+	fullpage,
 }) => {
 	const router = useRouter();
 	const domain = "https://kikstarterz.com";
@@ -93,9 +95,21 @@ const PageTemplate: FC<PageProps> = ({
 				as="main"
 				className={`${styles.PageTemplate} ${className}`}
 				minHeight={!container ? "70vh" : "unset"}
+				display={!container && fullpage ? "flex" : "block"}
+				justifyContent={!container && fullpage ? "center" : ""}
+				alignItems={!container && fullpage ? "center" : ""}
+				flexDirection={!container && fullpage ? "column" : "row"}
 			>
-				{container ? (
-					<Container minHeight="70vh" {...containerStyles}>
+				{container || fullpage ? (
+					<Container
+						padding={{ base: "0 16px", md: "0 32px" }}
+						minHeight="70vh"
+						display={fullpage ? "flex" : "block"}
+						justifyContent={fullpage ? "center" : ""}
+						alignItems={fullpage ? "center" : ""}
+						flexDirection={fullpage ? "column" : "row"}
+						{...containerStyles}
+					>
 						{children}
 					</Container>
 				) : (
