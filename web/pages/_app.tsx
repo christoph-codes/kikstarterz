@@ -5,6 +5,7 @@ import theme from "@/styles/theme";
 import SideNavProvider from "@/providers/SidenavProvider";
 import "@/styles/globals.scss";
 import ServerReadyProvider from "@/providers/ServerReadyProvider";
+import AuthProvider from "@/providers/AuthProvider";
 
 const App = ({ Component, pageProps }: AppProps) => (
 	<>
@@ -20,9 +21,11 @@ const App = ({ Component, pageProps }: AppProps) => (
 
 		<ChakraProvider theme={theme}>
 			<ServerReadyProvider>
-				<SideNavProvider>
-					<Component {...pageProps} />
-				</SideNavProvider>
+				<AuthProvider>
+					<SideNavProvider>
+						<Component {...pageProps} />
+					</SideNavProvider>
+				</AuthProvider>
 			</ServerReadyProvider>
 		</ChakraProvider>
 	</>
