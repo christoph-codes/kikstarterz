@@ -5,6 +5,8 @@ import {
 	getAthlete,
 	updateAthlete,
 	deleteAthlete,
+	getAthleteByUID,
+	verifyAthleteUsername,
 } from "./athletes.routes";
 import {
 	createQuote,
@@ -24,6 +26,8 @@ router.get("/auth/serve", issueToken);
 // Athletes
 router.post("/athletes/create", createAthlete);
 router.get("/athletes/:username", getAthlete);
+router.post("/athletes/single", getAthleteByUID);
+router.post("/athletes/verify-username", verifyAthleteUsername);
 router.post("/athletes/update", checkAuth, updateAthlete);
 router.post("/athletes/delete", checkAuth, deleteAthlete);
 

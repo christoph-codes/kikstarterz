@@ -32,7 +32,7 @@ export const createAthlete = (req: Request, res: Response) => {
 		auth.createUser({
 			email,
 			password,
-			displayName: `${fname} ${lname}`,
+			displayName: username,
 		})
 			.then((userRecord) => {
 				db.collection("athletes")
@@ -85,8 +85,38 @@ export const createAthlete = (req: Request, res: Response) => {
 				return;
 			});
 	} catch (err) {
-		res.status(500).send({ status: "Failed connecting to the database" });
+		res.status(500).send({ error: "Failed connecting to the database" });
 		return;
+	}
+};
+
+export const verifyAthleteUsername = async (req: Request, res: Response) => {
+	const { username } = req.body;
+	if (!username) {
+		return res.status(400).send({
+			error: "You must provide a valid username",
+		});
+	}
+	try {
+		const userByUsername = db
+			.collection("athletes")
+			.where("username", "==", username)
+			.get();
+		userByUsername.then((user: any) => {
+			console.log("userQuery", user.size);
+			if (user.size === 0) {
+				return res.status(200).send({
+					status: "This username is unique",
+				});
+			}
+			return res.status(400).send({
+				error: "This username has already been taken",
+			});
+		});
+	} catch (err) {
+		return res.status(500).send({
+			error: "Something went wrong verifying this username",
+		});
 	}
 };
 
@@ -112,6 +142,30 @@ export const getAthlete = async (req: Request, res: Response) => {
 	} catch (err) {
 		res.status(500).send({
 			error: "Failed getting a Kikstarterz Athlete",
+		});
+		return;
+	}
+};
+
+export const getAthleteByUID = async (req: Request, res: Response) => {
+	console.log("Getting athlete by uid...");
+	const { uid } = req.body;
+	console.log("uid", uid);
+	try {
+		const athlete = db.collection("athletes").doc(uid);
+		const chosenAthlete = await athlete.get();
+		if (!chosenAthlete.exists) {
+			res.status(400).send({
+				error: "This athlete does not exist in our database",
+			});
+			return;
+		}
+		res.status(200).send({ status: "success", data: chosenAthlete.data() });
+		return;
+	} catch (err) {
+		console.log("Athlete UID Error", err);
+		res.status(500).send({
+			error: "Failed getting a Kikstarterz Athlete by UID",
 		});
 		return;
 	}
