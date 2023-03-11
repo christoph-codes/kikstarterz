@@ -1,8 +1,11 @@
+import { useAuth } from "@/providers/AuthProvider";
 import { Flex, Image } from "@chakra-ui/react";
 import Link from "next/link";
+import Button from "../Button";
 import NavLink from "../NavLink";
 
 const Header = () => {
+	const { user, signOut } = useAuth();
 	return (
 		<Flex
 			justifyContent="space-between"
@@ -19,7 +22,19 @@ const Header = () => {
 					width="300px"
 				/>
 			</Link>
-			<NavLink href="/white-paper">Whitepaper</NavLink>
+			<Flex>
+				{!user ? (
+					<>
+						<NavLink href="/white-paper">Whitepaper</NavLink>
+						<NavLink href="/login">Login</NavLink>
+						<NavLink href="/signup" cta>
+							Signup
+						</NavLink>
+					</>
+				) : (
+					<Button onClick={signOut}>Logout</Button>
+				)}
+			</Flex>
 		</Flex>
 	);
 };
