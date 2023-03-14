@@ -6,7 +6,7 @@ export const EErrorMessages = {
 	CHECK_USERNAME: "This username has already been taken",
 } as const;
 
-export type EErrorMessages = typeof EErrorMessages;
+export type EErrorMessages = keyof typeof EErrorMessages;
 
 // All functions must either return true or the error message in which failed.
 const inputValidations = {
