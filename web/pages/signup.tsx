@@ -1,54 +1,21 @@
-import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase";
 import { Text } from "@chakra-ui/react";
 import Card from "@/components/Card";
 import Form from "@/components/Form";
 import Section from "@/components/Section";
 import Title from "@/components/Title";
 import PageTemplate from "@/templates/Page";
-import { kikapi } from "@/utils/helpers";
+import { useAuth } from "@/providers/AuthProvider";
+import { EErrorMessages } from "@/utils/inputValidations";
 
 const Signup = () => {
-	const [error, setError] = useState("");
-	const signup = (newUser: any) => {
-		kikapi
-			.post("/api/athletes/create", { user: newUser })
-			.then((res) => {
-				console.log("Create user result", res);
-				setError("");
-				signInWithEmailAndPassword(
-					auth,
-					newUser.email,
-					newUser.password
-				)
-					.then((userCredential) => {
-						setError("");
-						// Signed in
-						const user = userCredential.user;
-						console.log("LOGGED IN USER", user);
-						// ...
-					})
-					.catch((error) => {
-						setError(error.message);
-					});
-			})
-			.catch((err) => {
-				console.log("Error", err);
-				setError(err.response.data.error);
-			});
-	};
+	const { signup, authError } = useAuth();
+
 	return (
 		<PageTemplate
 			metaTitle="Sign Up » Kikstarterz"
 			metaDescription="Sign up today to showcase your talents and connect with other athletes. It's time to elevate your athletic career today!"
+			fullpage
 			container
-			containerStyles={{
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center",
-				flexDirection: "column",
-			}}
 		>
 			<Section
 				width="100%"
@@ -61,7 +28,7 @@ const Signup = () => {
 			<Card
 				marginTop={-8}
 				textAlign="center"
-				maxWidth={{ base: "100%", md: "70%" }}
+				maxWidth={{ base: "100%", sm: "80%", md: "70%" }}
 			>
 				<Title marginBottom={8}>Create Account</Title>
 				<Text marginY={4}>
@@ -73,7 +40,7 @@ const Signup = () => {
 					formName="signup"
 					onSubmit={signup}
 					submitButton={{ children: "Submit" }}
-					error={error}
+					error={authError}
 					inputs={[
 						{
 							name: "fname",
@@ -87,12 +54,7 @@ const Signup = () => {
 							placeholder: "Jones",
 							required: true,
 						},
-						{
-							name: "username",
-							label: "Username",
-							placeholder: "christoph_codes",
-							required: true,
-						},
+
 						{
 							type: "date",
 							name: "birthday",
@@ -124,11 +86,19 @@ const Signup = () => {
 							],
 						},
 						{
+							name: "username",
+							label: "Username",
+							placeholder: "christoph_codes",
+							required: true,
+							validation: ["CHECK_USERNAME", "REQUIRED"],
+						},
+						{
 							type: "email",
 							name: "email",
 							label: "Email",
 							placeholder: "chris@kikstarterz.com",
 							required: true,
+							validation: ["EMAIL", "REQUIRED"],
 						},
 						{
 							type: "password",
