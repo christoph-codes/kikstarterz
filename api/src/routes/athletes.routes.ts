@@ -103,7 +103,6 @@ export const verifyAthleteUsername = async (req: Request, res: Response) => {
 			.where("username", "==", username)
 			.get();
 		userByUsername.then((user: any) => {
-			console.log("userQuery", user.size);
 			if (user.size === 0) {
 				return res.status(200).send({
 					status: "This username is unique",
