@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import fireAuth, { getAuth } from "firebase/auth";
+import fireAuth, { connectAuthEmulator, getAuth } from "firebase/auth";
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -17,5 +17,9 @@ export const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
+
+if (process.env.NODE_ENV === "development") {
+	connectAuthEmulator(auth, "http://localhost:9099");
+}
 
 export default fireAuth;
