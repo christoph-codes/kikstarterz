@@ -112,6 +112,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 			router.push("/login");
 		});
 	};
+	// TODO: Add toast notification when user is logged in or out.
 	return (
 		<AuthContext.Provider
 			value={{
@@ -122,7 +123,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 				authError,
 			}}
 		>
-			{authError && <Text>{authError}</Text>}
 			{children}
 		</AuthContext.Provider>
 	);
