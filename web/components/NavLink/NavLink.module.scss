@@ -1,7 +1,7 @@
 .NavLink {
 	position: relative;
-	padding: 4px;
-	margin: 0 8px;
+	padding: 0.5rem 1rem;
+	margin: 0 4px;
 	text-align: center;
 	transition: color 0.15s ease-in-out;
 	span {
@@ -47,7 +47,7 @@
 	}
 	&__CTA {
 		background-color: var(--chakra-colors-brand-primary-default);
-		padding: 0.25rem 1rem;
+		
 		border-radius: 8px;
 		transition: 0.15s ease-in-out;
 		display: flex;
@@ -56,15 +56,11 @@
 		height: fit-content;
 		font-size: 24px;
 		span {
-			color: var(--chakra-colors-brand-white-default) !important;
-			font-weight: bold;
-			text-align: center !important;
-			text-transform: uppercase;
-			font-size: 18px;
-			font-family: 'Bebas Neue';
+			color: var(--chakra-colors-brand-black-default) !important;
 		}
 		&:hover {
 			background-color: var(--chakra-colors-brand-primary-hover);
+			color: var(--chakra-colors-brand-black-hover) !important;
 		}
 	}
 }
